@@ -8,10 +8,10 @@ namespace SOT_Projekt_Fahrradladen
 {
     class Kunde
     {
-        string Vorname;
-        string Nachname;
-        int Hausnummer;
-        int PLZ;
-        string Stadt;
+        string Vorname { get; set; }
+        string Nachname { get; set; }
+        int Hausnummer { get; set; }
+        int PLZ { get; set; }
+        string Stadt { get; set; }
     }
 }
