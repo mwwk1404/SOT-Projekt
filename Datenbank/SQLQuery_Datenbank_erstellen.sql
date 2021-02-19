@@ -20,6 +20,7 @@ FOREIGN KEY (Artikel_ID) REFERENCES Artikel(Artikel_ID));
 CREATE TABLE Rechnungen (
 Rechnungs_ID INT IDENTITY PRIMARY KEY,
 Rechnungsgesamtpreis DECIMAL,
+Rechnungs_Datum DATE,
 Artikelliste_ID INT,
 FOREIGN KEY (Artikelliste_ID) REFERENCES Artikelliste(Artikelliste_ID));
 

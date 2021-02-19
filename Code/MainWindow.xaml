@@ -20,19 +20,21 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="Artikel:"/>
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="tbName" Text="{Binding Name}"/>
+
                 <Label Grid.Row="1" Grid.Column="0" Content="Arbeitszeit:"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbPrice" Text="{Binding Price}"/>
+
                 <Label Grid.Row="2" Grid.Column="0" Content="Zusammenfassung:"/>
-                <Button Content="hinzufügen" Grid.Column="1" HorizontalAlignment="Left" Margin="332,10,0,0" VerticalAlignment="Top" Width="246"/>
+                <Button Content="hinzufügen" Grid.Column="1" HorizontalAlignment="Left" Margin="332,10,0,0" VerticalAlignment="Top" Width="246" Click="Button_Click_Artikel_hinzufügen"/>
 
 
-                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,10.8,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="246"/>
-                <Button Content="hinzufügen" Grid.Column="1" HorizontalAlignment="Left" Margin="10,67.8,0,0" VerticalAlignment="Top" Width="246" Grid.Row="1"/>
-                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="107" Margin="10,9.8,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="568"/>
+                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,10.8,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Arbeitszeit eingeben" VerticalAlignment="Top" Width="246" Name="Arbeitszeit_Text" PreviewTextInput="Arbeitszeit_Text_PreviewTextInput" MouseDoubleClick="Arbeitszeit_Text_MouseDoubleClick"/>
+                <Button Content="hinzufügen" Grid.Column="1" HorizontalAlignment="Left" Margin="10,67.8,0,0" VerticalAlignment="Top" Width="246" Grid.Row="1" Click="Button_Click_Arbeitszeit"/>
+                <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="107" Margin="10,9.8,0,0" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="568" Name="Zuasammenfassung_Rechnung" IsReadOnly="True"/>
                 <Button Content="erstellen" HorizontalAlignment="Left" Margin="10,86.8,0,0" VerticalAlignment="Top" Width="180" Grid.Row="2"/>
-                <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="122" Margin="10,0,0,0" VerticalAlignment="Top" Width="291" Name="DataGridyo" AutoGenerateColumns="True" ItemsSource="{Binding}" 
-                          />
+
+                <DataGrid Grid.Column="1" HorizontalAlignment="Left" Height="122" Margin="10,0,0,0" VerticalAlignment="Top" Width="291" Name="DataGridyo" AutoGenerateColumns="True" ItemsSource="{Binding}"
+                />
+
             </Grid>
 
         </TabItem>
