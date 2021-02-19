@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="VerkaufModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artikel">
+          <Key>
+            <PropertyRef Name="Artikel_ID" />
+          </Key>
+          <Property Name="Artikel_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Artikel_Bezeichnung" Type="varchar" MaxLength="100" />
+          <Property Name="Artikel_Preis" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Artikelliste">
+          <Key>
+            <PropertyRef Name="Artikelliste_ID" />
+          </Key>
+          <Property Name="Artikelliste_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gesamtpreis" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Artikel_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Rechnungen">
+          <Key>
+            <PropertyRef Name="Rechnungs_ID" />
+          </Key>
+          <Property Name="Rechnungs_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Artikelliste_ID" Type="int" />
+          <Property Name="Arbeitszeit" Type="int" />
+        </EntityType>
+        <Association Name="FK__Artikelli__Artik__25869641">
+          <End Role="Artikel" Type="Self.Artikel" Multiplicity="0..1" />
+          <End Role="Artikelliste" Type="Self.Artikelliste" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="Artikel_ID" />
+            </Principal>
+            <Dependent Role="Artikelliste">
+              <PropertyRef Name="Artikel_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rechnunge__Artik__2B3F6F97">
+          <End Role="Artikelliste" Type="Self.Artikelliste" Multiplicity="0..1" />
+          <End Role="Rechnungen" Type="Self.Rechnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikelliste">
+              <PropertyRef Name="Artikelliste_ID" />
+            </Principal>
+            <Dependent Role="Rechnungen">
+              <PropertyRef Name="Artikelliste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VerkaufModelStoreContainer">
+          <EntitySet Name="Artikel" EntityType="Self.Artikel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Artikelliste" EntityType="Self.Artikelliste" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rechnungen" EntityType="Self.Rechnungen" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Artikelli__Artik__25869641" Association="Self.FK__Artikelli__Artik__25869641">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Artikelliste" EntitySet="Artikelliste" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rechnunge__Artik__2B3F6F97" Association="Self.FK__Rechnunge__Artik__2B3F6F97">
+            <End Role="Artikelliste" EntitySet="Artikelliste" />
+            <End Role="Rechnungen" EntitySet="Rechnungen" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VerkaufModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artikel">
+          <Key>
+            <PropertyRef Name="Artikel_ID" />
+          </Key>
+          <Property Name="Artikel_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Artikel_Bezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Artikel_Preis" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Artikelliste" Relationship="Self.FK__Artikelli__Artik__25869641" FromRole="Artikel" ToRole="Artikelliste" />
+        </EntityType>
+        <EntityType Name="Artikelliste">
+          <Key>
+            <PropertyRef Name="Artikelliste_ID" />
+          </Key>
+          <Property Name="Artikelliste_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gesamtpreis" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Artikel_ID" Type="Int32" />
+          <NavigationProperty Name="Artikel" Relationship="Self.FK__Artikelli__Artik__25869641" FromRole="Artikelliste" ToRole="Artikel" />
+          <NavigationProperty Name="Rechnungen" Relationship="Self.FK__Rechnunge__Artik__2B3F6F97" FromRole="Artikelliste" ToRole="Rechnungen" />
+        </EntityType>
+        <EntityType Name="Rechnungen">
+          <Key>
+            <PropertyRef Name="Rechnungs_ID" />
+          </Key>
+          <Property Name="Rechnungs_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Artikelliste_ID" Type="Int32" />
+          <Property Name="Arbeitszeit" Type="Int32" />
+          <NavigationProperty Name="Artikelliste" Relationship="Self.FK__Rechnunge__Artik__2B3F6F97" FromRole="Rechnungen" ToRole="Artikelliste" />
+        </EntityType>
+        <Association Name="FK__Artikelli__Artik__25869641">
+          <End Role="Artikel" Type="Self.Artikel" Multiplicity="0..1" />
+          <End Role="Artikelliste" Type="Self.Artikelliste" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikel">
+              <PropertyRef Name="Artikel_ID" />
+            </Principal>
+            <Dependent Role="Artikelliste">
+              <PropertyRef Name="Artikel_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rechnunge__Artik__2B3F6F97">
+          <End Role="Artikelliste" Type="Self.Artikelliste" Multiplicity="0..1" />
+          <End Role="Rechnungen" Type="Self.Rechnungen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikelliste">
+              <PropertyRef Name="Artikelliste_ID" />
+            </Principal>
+            <Dependent Role="Rechnungen">
+              <PropertyRef Name="Artikelliste_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VerkaufEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artikel" EntityType="Self.Artikel" />
+          <EntitySet Name="Artikelliste" EntityType="Self.Artikelliste" />
+          <EntitySet Name="Rechnungen" EntityType="Self.Rechnungen" />
+          <AssociationSet Name="FK__Artikelli__Artik__25869641" Association="Self.FK__Artikelli__Artik__25869641">
+            <End Role="Artikel" EntitySet="Artikel" />
+            <End Role="Artikelliste" EntitySet="Artikelliste" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rechnunge__Artik__2B3F6F97" Association="Self.FK__Rechnunge__Artik__2B3F6F97">
+            <End Role="Artikelliste" EntitySet="Artikelliste" />
+            <End Role="Rechnungen" EntitySet="Rechnungen" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VerkaufModelStoreContainer" CdmEntityContainer="VerkaufEntities">
+          <EntitySetMapping Name="Artikel">
+            <EntityTypeMapping TypeName="VerkaufModel.Artikel">
+              <MappingFragment StoreEntitySet="Artikel">
+                <ScalarProperty Name="Artikel_ID" ColumnName="Artikel_ID" />
+                <ScalarProperty Name="Artikel_Bezeichnung" ColumnName="Artikel_Bezeichnung" />
+                <ScalarProperty Name="Artikel_Preis" ColumnName="Artikel_Preis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Artikelliste">
+            <EntityTypeMapping TypeName="VerkaufModel.Artikelliste">
+              <MappingFragment StoreEntitySet="Artikelliste">
+                <ScalarProperty Name="Artikelliste_ID" ColumnName="Artikelliste_ID" />
+                <ScalarProperty Name="Gesamtpreis" ColumnName="Gesamtpreis" />
+                <ScalarProperty Name="Artikel_ID" ColumnName="Artikel_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rechnungen">
+            <EntityTypeMapping TypeName="VerkaufModel.Rechnungen">
+              <MappingFragment StoreEntitySet="Rechnungen">
+                <ScalarProperty Name="Rechnungs_ID" ColumnName="Rechnungs_ID" />
+                <ScalarProperty Name="Artikelliste_ID" ColumnName="Artikelliste_ID" />
+                <ScalarProperty Name="Arbeitszeit" ColumnName="Arbeitszeit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
