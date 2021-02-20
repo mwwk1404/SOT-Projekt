@@ -1,0 +1,4 @@
+USE Master;
+GO
+
+CREATE DATABASE Verkauf;
