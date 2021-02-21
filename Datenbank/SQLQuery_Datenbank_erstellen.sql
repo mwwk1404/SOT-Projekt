@@ -12,8 +12,10 @@ Artikel_Preis DECIMAL);
 CREATE TABLE Rechnungen (
 Rechnungs_ID INT IDENTITY PRIMARY KEY,
 Artikel_ID INT,
+Arbeitszeit INT,
 FOREIGN KEY (Artikel_ID) REFERENCES Artikel(Artikel_ID),
 Rechnungs_Datum DATE,
+Gesamtpreis DECIMAL,
 );
 
 INSERT INTO Artikel(Artikel_Bezeichnung, Artikel_Preis)

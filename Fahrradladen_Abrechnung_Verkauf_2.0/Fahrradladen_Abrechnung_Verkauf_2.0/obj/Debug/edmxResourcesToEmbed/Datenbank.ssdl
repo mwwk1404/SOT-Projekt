@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VerkaufModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Artikel">
+    <Key>
+      <PropertyRef Name="Artikel_ID" />
+    </Key>
+    <Property Name="Artikel_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Artikel_Bezeichnung" Type="varchar" MaxLength="100" />
+    <Property Name="Artikel_Preis" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Rechnungen">
+    <Key>
+      <PropertyRef Name="Rechnungs_ID" />
+    </Key>
+    <Property Name="Rechnungs_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Artikel_ID" Type="int" />
+    <Property Name="Arbeitszeit" Type="int" />
+    <Property Name="Rechnungs_Datum" Type="date" />
+    <Property Name="Gesamtpreis" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <Association Name="FK__Rechnunge__Artik__36B12243">
+    <End Role="Artikel" Type="Self.Artikel" Multiplicity="0..1" />
+    <End Role="Rechnungen" Type="Self.Rechnungen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artikel">
+        <PropertyRef Name="Artikel_ID" />
+      </Principal>
+      <Dependent Role="Rechnungen">
+        <PropertyRef Name="Artikel_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VerkaufModelStoreContainer">
+    <EntitySet Name="Artikel" EntityType="Self.Artikel" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rechnungen" EntityType="Self.Rechnungen" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Rechnunge__Artik__36B12243" Association="Self.FK__Rechnunge__Artik__36B12243">
+      <End Role="Artikel" EntitySet="Artikel" />
+      <End Role="Rechnungen" EntitySet="Rechnungen" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

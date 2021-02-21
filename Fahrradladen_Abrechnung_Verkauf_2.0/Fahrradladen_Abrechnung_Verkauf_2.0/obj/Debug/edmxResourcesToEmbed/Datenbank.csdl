@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VerkaufModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Artikel">
+    <Key>
+      <PropertyRef Name="Artikel_ID" />
+    </Key>
+    <Property Name="Artikel_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Artikel_Bezeichnung" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Artikel_Preis" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Rechnungen" Relationship="Self.FK__Rechnunge__Artik__36B12243" FromRole="Artikel" ToRole="Rechnungen" />
+  </EntityType>
+  <EntityType Name="Rechnungen">
+    <Key>
+      <PropertyRef Name="Rechnungs_ID" />
+    </Key>
+    <Property Name="Rechnungs_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Artikel_ID" Type="Int32" />
+    <Property Name="Arbeitszeit" Type="Int32" />
+    <Property Name="Rechnungs_Datum" Type="DateTime" Precision="0" />
+    <Property Name="Gesamtpreis" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Artikel" Relationship="Self.FK__Rechnunge__Artik__36B12243" FromRole="Rechnungen" ToRole="Artikel" />
+  </EntityType>
+  <Association Name="FK__Rechnunge__Artik__36B12243">
+    <End Role="Artikel" Type="Self.Artikel" Multiplicity="0..1" />
+    <End Role="Rechnungen" Type="Self.Rechnungen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Artikel">
+        <PropertyRef Name="Artikel_ID" />
+      </Principal>
+      <Dependent Role="Rechnungen">
+        <PropertyRef Name="Artikel_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="VerkaufEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Artikel" EntityType="Self.Artikel" />
+    <EntitySet Name="Rechnungen" EntityType="Self.Rechnungen" />
+    <AssociationSet Name="FK__Rechnunge__Artik__36B12243" Association="Self.FK__Rechnunge__Artik__36B12243">
+      <End Role="Artikel" EntitySet="Artikel" />
+      <End Role="Rechnungen" EntitySet="Rechnungen" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
